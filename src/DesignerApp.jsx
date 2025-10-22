@@ -22,9 +22,65 @@ const PAINT_COLORS = [
   { name: 'October Mist', hex: '#B5B9A9' }, { name: 'Classic Gray', hex: '#DADAD4' },
 ];
 const PRE_WRITTEN_SUGGESTIONS = [
+  // Modern / Minimalist
   "Modern Look: Paint an accent wall 'Hale Navy'. Place the 'Sofa' against it, the 'Modern TV stand' opposite, and a 'Floor Lamp' in the corner.",
+  "Minimalist Vibe: Use 'Agreeable Gray' walls. Position the 'Sofa' and 'Chair' facing each other with a 'Rug' in between. Add the 'Modern TV stand'.",
+  "Sleek & Simple: Paint walls 'Chantilly Lace'. Furnish with the 'Sofa', 'Modern TV stand', and keep decor minimal with just a 'Frame'.",
+  "Urban Style: Try 'Iron Ore' paint. Place the 'Sofa' centrally, add a 'Rug' underneath, and use the 'Book Shelf' for vertical interest.",
+  "Contemporary Cool: Use 'Classic Gray' walls. Combine the 'Sofa', 'Chair', and 'Modern TV stand'. Add a 'Floor Lamp' for ambiance.",
+  "Clean Lines: Paint with 'Pale Oak'. Arrange the 'Sofa' and 'Chair' for conversation, place the 'Modern TV stand', and add a simple 'Rug'.",
+  "Monochromatic: Use shades of gray like 'Revere Pewter' and 'Kendall Charcoal'. Furnish with 'Sofa', 'Chair', and 'Modern TV stand'.",
+  "Neutral Base: Paint walls 'Alabaster'. Add the 'Sofa', 'Rug', and 'Book Shelf'. Keep accessories simple.",
+  "Bold Contrast: Use 'Tricorn Black' on one wall, 'Chantilly Lace' on others. Place the 'Sofa' against the black wall and add the 'Modern TV stand'.",
+  "Scandinavian Touch: Paint with 'Swiss Coffee'. Add the 'Sofa', a light-colored 'Rug', and the 'Book Shelf'.",
+
+  // Cozy / Comfortable
   "Cozy Bedroom: Use 'Sea Salt' paint. Place the 'Bed' against the main wall with a 'Night Stand'. Add the 'Wide Dresser' and a 'Rug'.",
-  // ... Add more suggestions if desired
+  "Warm Living Space: Paint walls 'Accessible Beige'. Arrange the 'Sofa' and 'Chair' comfortably, add a 'Rug' and 'Floor Lamp'.",
+  "Inviting Corner: Use 'Revere Pewter' paint. Place the 'Chair' near a window with a 'Floor Lamp' beside it.",
+  "Relaxing Retreat: Paint with 'October Mist'. Place the 'Bed' centrally, add a 'Night Stand', and soften the floor with a 'Rug'.",
+  "Comfort First: Use 'Classic Gray' walls. Combine the 'Sofa' and 'Rug'. Add the 'Book Shelf' for personality.",
+  "Soft & Serene: Paint with 'Pale Oak'. Arrange the 'Bed', 'Night Stand', and 'Tall Dresser'.",
+  "Earthy Tones: Use 'Accessible Beige' or 'Urbane Bronze'. Place the 'Sofa', 'Chair', and 'Rug'.",
+  "Snug Reading Nook: Paint a corner 'Kendall Charcoal'. Place the 'Chair' and 'Floor Lamp' there.",
+  "Guest Ready: Use 'Swiss Coffee' paint. Add the 'Bed' and a 'Night Stand'. Keep it simple and welcoming.",
+  "Peaceful Palette: Combine 'Sea Salt' walls with the 'Bed' and 'Wide Dresser'.",
+
+  // Bold / Eclectic
+  "Bold Statement: Paint a feature wall 'Red'. Place the 'Chair' in front of it and hang the 'Frame' above.",
+  "Vibrant Energy: Use 'Orange' paint sparingly on one wall. Balance with the 'Sofa' and 'Rug'.",
+  "Deep Blue: Paint the room 'Hale Navy'. Add the 'Sofa', 'Chair', and 'Rug' in lighter tones.",
+  "Jewel Tone: Try 'Purple' on an accent wall. Position the 'Modern TV stand' against it.",
+  "Earthy Warmth: Use 'Terracotta' paint. Combine with the 'Sofa' and 'Rug'.",
+  "Rich Brown: Paint a wall 'Brown'. Place the 'Book Shelf' against it.",
+  "Teal Accent: Use 'Aegean Teal' for a feature wall. Arrange the 'Sofa' and 'Chair' nearby.",
+  "Green Scene: Paint with 'Green'. Add the 'Bed' and 'Night Stand' for a nature-inspired bedroom.",
+  "Sunny Yellow: Use 'Yellow' paint to brighten the space. Add the 'Dining Table' and 'Chair' items.",
+  "Dramatic Flair: Combine 'Tricorn Black' walls with the 'Sofa' and a metallic 'Floor Lamp'.",
+
+  // Specific Room Ideas
+  "Bedroom Setup: Use 'Agreeable Gray'. Place the 'Bed', two 'Night Stand' items, and the 'Wide Dresser'.",
+  "Living Room Layout: Paint 'Revere Pewter'. Arrange 'Sofa', 'Chair', 'Modern TV stand', 'Rug', and 'Floor Lamp'.",
+  "Dining Area: Use 'Classic Gray' walls. Center the 'Dining Table' and surround it with 'Chair' items. Add a 'Mirror' on one wall.",
+  "Simple Study: Paint 'Alabaster'. Place the 'Book Shelf' and a 'Chair'.",
+  "Entryway Idea: Use 'Pale Oak'. Add a 'Mirror' and perhaps a small 'Chair'.",
+  "Entertainment Zone: Paint 'Kendall Charcoal'. Center the 'Modern TV stand', add the 'Sofa', and a 'Rug'.",
+  "Master Suite: Use 'Hale Navy' behind the 'Bed'. Add 'Night Stand' items and the 'Tall Dresser'.",
+  "Kids Room Idea: Paint 'Light Blue' or 'Yellow'. Add the 'Bed' and 'Book Shelf'.",
+  "Formal Living: Use 'Swiss Coffee'. Arrange the 'Sofa' and two 'Chair' items with a 'Rug'.",
+  "Modern Dining: Paint 'Iron Ore'. Use the 'Dining Table' and 'Chair' items, add a 'Frame' for art.",
+
+  // Mix & Match
+  "Contrast Play: Paint 'Tricorn Black' and 'Chantilly Lace'. Add the 'Sofa' and 'Chair'.",
+  "Teal and Gray: Use 'Aegean Teal' accent with 'Classic Gray'. Furnish with 'Sofa' and 'Rug'.",
+  "Warm Neutrals: Combine 'Accessible Beige' and 'Urbane Bronze'. Use 'Sofa', 'Chair', 'Rug'.",
+  "Cool & Calm: Mix 'Sea Salt' and 'Agreeable Gray'. Add 'Bed', 'Night Stand'.",
+  "Navy & White: Paint 'Hale Navy' and 'Chantilly Lace'. Place 'Sofa', 'Modern TV stand'.",
+  "Bronze Accent: Use 'Urbane Bronze' feature wall with 'Alabaster'. Add 'Bed', 'Wide Dresser'.",
+  "Charcoal & Oak: Paint 'Kendall Charcoal'. Add 'Dining Table', 'Chair', 'Mirror'.",
+  "Beige & Blue: Use 'Accessible Beige' with 'Blue' accents. Furnish with 'Sofa', 'Chair'.",
+  "Green & Wood: Paint 'Sage Green'. Add 'Bed', 'Night Stand'.",
+  "Gray Scale: Layer 'Revere Pewter', 'Agreeable Gray', 'Kendall Charcoal'. Use 'Sofa', 'Modern TV stand', 'Rug'."
 ];
 
 // Animation for the page wrapper (Fade In/Out) - Same as HomePage

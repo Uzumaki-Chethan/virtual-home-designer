@@ -29,13 +29,22 @@ const FurniturePiece = ({ shapeProps, isSelected, onSelect, onChange }) => {
           const scaleY = node.scaleY();
           node.scaleX(1);
           node.scaleY(1);
-          onChange({ ...shapeProps, x: node.x(), y: node.y(), width: node.width() * scaleX, height: node.height() * scaleY, rotation: node.rotation() });
+          onChange({
+            ...shapeProps,
+            x: node.x(),
+            y: node.y(),
+            width: Math.max(5, node.width() * scaleX),
+            height: Math.max(5, node.height() * scaleY),
+            rotation: node.rotation(),
+            scaleX: shapeProps.scaleX // Keep flip state
+          });
         }}
       />
       {isSelected && (
         <Transformer
           ref={trRef}
           flipEnabled={false}
+          rotateEnabled={true} // Enable rotation
           boundBoxFunc={(oldBox, newBox) => {
             if (Math.abs(newBox.width) < 10 || Math.abs(newBox.height) < 10) { return oldBox; }
             return newBox;
@@ -47,9 +56,9 @@ const FurniturePiece = ({ shapeProps, isSelected, onSelect, onChange }) => {
 };
 
 export default function Workspace({
-  stageRef, 
   imageUrl, furniture, setFurniture, selectedId, setSelectedId,
-  mode, paintColor, wallPolygons, setWallPolygons, newPolygonPoints, setNewPolygonPoints
+  mode, paintColor, wallPolygons, setWallPolygons, newPolygonPoints, setNewPolygonPoints,
+  stageRef // Receive stageRef
 }) {
   const containerRef = useRef(null);
   const [image, status] = useImage(imageUrl);
@@ -85,13 +94,8 @@ export default function Workspace({
     if (mode === 'paint') {
       const stage = e.target.getStage();
       const pos = stage.getPointerPosition();
-
       if (newPolygonPoints.length > 2 && isCloseToStart(pos, newPolygonPoints[0])) {
-        const finishedPolygon = {
-          points: newPolygonPoints,
-          color: paintColor,
-          id: Date.now().toString(),
-        };
+        const finishedPolygon = { points: newPolygonPoints, color: paintColor, id: Date.now().toString() };
         setWallPolygons([...wallPolygons, finishedPolygon]);
         setNewPolygonPoints([]);
       } else {
@@ -112,17 +116,40 @@ export default function Workspace({
   return (
     <div ref={containerRef} className="flex-1 bg-slate-200 flex justify-center items-center p-4 overflow-auto">
       {imageUrl && status === 'loaded' ? (
-        <Stage ref={stageRef} width={scaledSize.width} height={scaledSize.height} onMouseDown={handleMouseDown}>
+        <Stage
+          ref={stageRef} // Attach the ref here
+          width={scaledSize.width}
+          height={scaledSize.height}
+          onMouseDown={handleMouseDown}
+        >
           <Layer>
             <KonvaImage image={image} width={scaledSize.width} height={scaledSize.height} name="room-image" />
           </Layer>
           <Layer>
+            {/* --- Corrected Paint Polygons --- */}
             {wallPolygons.map(poly => (
-              <Line key={poly.id} points={poly.points.flatMap(p => [p.x, p.y])} fill={poly.color} opacity={0.5} closed listening={false} />
+              <Line
+                key={poly.id}
+                points={poly.points.flatMap(p => [p.x, p.y])}
+                fill={poly.color}
+                opacity={0.5}
+                closed
+                listening={false}
+              />
             ))}
             <Line points={flatPoints} stroke="black" strokeWidth={1} listening={false} />
+            {/* --- Corrected Paint Points --- */}
             {newPolygonPoints.map((point, index) => (
-              <Circle key={index} x={point.x} y={point.y} radius={index === 0 ? 6 : 4} fill={index === 0 ? 'red' : 'white'} stroke="black" strokeWidth={1} listening={false} />
+              <Circle
+                key={index}
+                x={point.x}
+                y={point.y}
+                radius={index === 0 ? 6 : 4}
+                fill={index === 0 ? 'red' : 'white'}
+                stroke="black"
+                strokeWidth={1}
+                listening={false}
+              />
             ))}
           </Layer>
           <Layer>
